@@ -7,19 +7,16 @@ def parse(file_path: str) -> dict:
     return parsed_data
 
 def read_file(file_path: str) -> str:
-    with open(file_path, 'r') as file:
-        raw_data = file.read()
-    
-    result = chardet.detect(raw_data)
-    encoding = result['encoding']
-    
-    if not encoding:
-        raise ValueError("Failed to detect the encoding of the file.")
+    raw_data = []
+    with open(file_path, 'r', errors="ignore") as file:
+        for line in file:
+            raw_data.append(line)
     
     try:
-        return raw_data.decode(encoding)
-    except UnicodeDecodeError:
-        raise ValueError(f"Failed to decode the file with the detected encoding: {encoding}")
+        raw_data = ''.join(raw_data)
+        return raw_data
+    except:
+        raise ValueError(f"Failed to decode the file with the detected encoding")
 
 def extract_clauses(text: str) -> dict:
     clauses = {

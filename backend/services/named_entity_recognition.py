@@ -6,4 +6,5 @@ class NamedEntityRecognizer:
 
     def recognize(self, text):
         entities = self.ner(text)
+        print(f'--------------------------------------------------\n{entities}\n--------------------------------------------------')
         return entities
